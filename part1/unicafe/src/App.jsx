@@ -4,18 +4,22 @@ const Button = ({onClick,text}) => <button onClick={onClick}>{text}</button>
 const Statistic = ({text, value, p =''}) => <>{text} {value} {p}<br/></>
 const Statistics = ({statistics}) => {
   const total = statistics.bad + statistics.neutral + statistics.good;
-  const average = total == 0 ? 0 : (statistics.good -statistics.bad) / total;
-  const positive = total == 0 ? 0 : statistics.good *100 / total;
+  const noClicks = total == 0;
+  const average =  (statistics.good -statistics.bad) / total;
+  const positive =  statistics.good *100 / total;
 
   return (
-    <p>
-      <Statistic text='good' value={statistics.good} />
-      <Statistic text='neutral' value={statistics.neutral} />
-      <Statistic text='bad' value={statistics.bad} />
-      <Statistic text='all' value={total} />
-      <Statistic text='average' value={average}/>
-      <Statistic text='postive' value={positive} p='%'/> 
-    </p>
+    noClicks ? 
+      <p>No feedback given</p>
+      : 
+      <p>
+        <Statistic text='good' value={statistics.good} />
+        <Statistic text='neutral' value={statistics.neutral} />
+        <Statistic text='bad' value={statistics.bad} />
+        <Statistic text='all' value={total} />
+        <Statistic text='average' value={average}/>
+        <Statistic text='postive' value={positive} p='%'/> 
+      </p>
   )
 }
 
