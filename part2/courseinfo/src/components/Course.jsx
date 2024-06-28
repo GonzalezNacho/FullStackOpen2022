@@ -8,10 +8,17 @@ const Content = ({parts}) => {
     return (
         <>
             {parts.map(part => 
-                    <Part key={part.id} part={part}/>
+                <Part key={part.id} part={part}/>
             )}
+            <Total parts={parts} />
         </>
     )
+}
+
+const Total = ({parts}) => {
+    const total = parts.reduce((s, p) => s + p.exercises, 0)
+    
+    return <b>total of {total} exercises</b>
 }
 
 const Header = ({name}) => <h1>{name}</h1>
