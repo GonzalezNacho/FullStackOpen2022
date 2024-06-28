@@ -21,7 +21,7 @@ const Total = ({parts}) => {
     return <b>total of {total} exercises</b>
 }
 
-const Header = ({name}) => <h1>{name}</h1>
+const Header = ({name}) => <h2>{name}</h2>
 
 const Course = ({course}) => {
     return (
