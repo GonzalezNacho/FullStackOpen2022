@@ -9,12 +9,18 @@ const App = () => {
 
   const addName = (e) => {
     e.preventDefault()
-    const personObject = {
-      name: newName
-    }
 
-    setPersons(persons.concat(personObject))
-    setNewName('')
+    if(persons.find(person => person.name == newName)) {
+      alert(`${newName} is already added to phonebook`)
+    } else {
+      const personObject = {
+        name: newName
+      }
+
+      setPersons(persons.concat(personObject))
+
+      setNewName('')
+    }
   }
 
   const handleNameChange = (event) => {
