@@ -7,26 +7,43 @@ const PersonForm = ({persons, setPersons}) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
+    const updateContact = (verifyPerson, personObject) => {
+        const replace = confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+
+        replace && personService
+            .updatePerson(verifyPerson.id, personObject)
+            .then(returnedPerson => {
+                setPersons(persons.map(a => a.id !== verifyPerson.id ? a : returnedPerson))
+    
+                setNewName('')
+                setNewNumber('')
+            })
+    }
+
+    const addContact = personObject => {
+        personService
+            .create(personObject)
+            .then(returnedPerson => {
+                setPersons(persons.concat(returnedPerson))
+    
+                setNewName('')
+                setNewNumber('')
+            })
+    }
+
     const addName = (e) => {
         e.preventDefault()
-    
-        if(persons.find(person => person.name == newName)) {
-            alert(`${newName} is already added to phonebook`)
-        } else {
-            const personObject = {
-                name: newName,
-                number: newNumber,
-            }
 
-            personService
-                .create(personObject)
-                .then(returnedPerson => {
-                    setPersons(persons.concat(returnedPerson))
+        const verifyPerson = persons.find(person => person.name == newName)
         
-                    setNewName('')
-                    setNewNumber('')
-                })
+        const personObject = {
+            name: newName,
+            number: newNumber,
         }
+
+        verifyPerson 
+            ? updateContact(verifyPerson, personObject)
+            : addContact(personObject);
     }
 
     return (
