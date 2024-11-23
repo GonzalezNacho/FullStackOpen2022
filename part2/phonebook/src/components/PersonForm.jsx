@@ -2,7 +2,7 @@ import { useState } from 'react';
 import personService from '../services/persons'
 import InputForm from "./InputForm";
 
-const PersonForm = ({persons, setPersons}) => {
+const PersonForm = ({persons, setPersons, setNotification}) => {
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
@@ -14,7 +14,11 @@ const PersonForm = ({persons, setPersons}) => {
             .updatePerson(verifyPerson.id, personObject)
             .then(returnedPerson => {
                 setPersons(persons.map(a => a.id !== verifyPerson.id ? a : returnedPerson))
-    
+                setNotification(`Updated ${returnedPerson.name}`)
+                setTimeout(() => {
+                    setNotification(null)
+                }, 2000);
+
                 setNewName('')
                 setNewNumber('')
             })
@@ -25,6 +29,10 @@ const PersonForm = ({persons, setPersons}) => {
             .create(personObject)
             .then(returnedPerson => {
                 setPersons(persons.concat(returnedPerson))
+                setNotification(`Added ${returnedPerson.name}`)
+                setTimeout(() => {
+                    setNotification(null)
+                }, 2000);
     
                 setNewName('')
                 setNewNumber('')
