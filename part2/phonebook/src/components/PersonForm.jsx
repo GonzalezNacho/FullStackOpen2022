@@ -2,7 +2,7 @@ import { useState } from 'react';
 import personService from '../services/persons'
 import InputForm from "./InputForm";
 
-const PersonForm = ({persons, setPersons, setNotification}) => {
+const PersonForm = ({persons, setPersons, notiTemp}) => {
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
@@ -14,13 +14,13 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
             .updatePerson(verifyPerson.id, personObject)
             .then(returnedPerson => {
                 setPersons(persons.map(a => a.id !== verifyPerson.id ? a : returnedPerson))
-                setNotification(`Updated ${returnedPerson.name}`)
-                setTimeout(() => {
-                    setNotification(null)
-                }, 2000);
+                notiTemp(`Updated ${returnedPerson.name}`, 'green')
 
                 setNewName('')
                 setNewNumber('')
+            })
+            .catch(err => {
+                notiTemp(`Information of ${newName} has already been removed from server`, 'red') 
             })
     }
 
@@ -29,10 +29,7 @@ const PersonForm = ({persons, setPersons, setNotification}) => {
             .create(personObject)
             .then(returnedPerson => {
                 setPersons(persons.concat(returnedPerson))
-                setNotification(`Added ${returnedPerson.name}`)
-                setTimeout(() => {
-                    setNotification(null)
-                }, 2000);
+                notiTemp(`Added ${returnedPerson.name}`, 'green')
     
                 setNewName('')
                 setNewNumber('')
