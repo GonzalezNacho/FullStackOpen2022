@@ -27,7 +27,7 @@ function App() {
   return (
     <>
       find countries <input onChange={handleChange}/>
-      {search != '' && <Countries countriesToShow={results} />}
+      {search != '' && <Countries countriesToShow={results} setSearch={setSearch}/>}
     </>
   )
 }
