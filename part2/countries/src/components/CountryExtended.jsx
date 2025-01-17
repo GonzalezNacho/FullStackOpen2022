@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import countryService from '../services/countries'
+import CountryWeather from "./CountryWeather";
 
 function CountryExtended({country}) {
 
@@ -15,9 +16,10 @@ function CountryExtended({country}) {
                     laguages: Object.values(res.languages),
                     flag : res.flags.png
                 }
+                console.log(resCountry)
                 setCountryDetail(resCountry)
             })
-    },[countryDetail])
+    },[])
 
     return (
         <>
@@ -37,6 +39,7 @@ function CountryExtended({country}) {
                         }
                     </ul>
                     <img src={countryDetail.flag} alt={`bandera de ${country}`} />
+                    <CountryWeather capital={countryDetail.capital}/>
                 </>
             }
             
