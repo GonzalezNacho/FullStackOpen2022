@@ -20,7 +20,7 @@ const PersonForm = ({persons, setPersons, notiTemp}) => {
                 setNewNumber('')
             })
             .catch(err => {
-                notiTemp(`Information of ${newName} has already been removed from server`, 'red') 
+                notiTemp(err.response.data.error, 'red') 
             })
     }
 
@@ -33,6 +33,9 @@ const PersonForm = ({persons, setPersons, notiTemp}) => {
     
                 setNewName('')
                 setNewNumber('')
+            })
+            .catch( error => {
+                notiTemp(error.response.data.error, 'red')
             })
     }
 
