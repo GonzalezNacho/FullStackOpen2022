@@ -7,7 +7,7 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "start": "node index.js",
     "dev": "nodemon --inspect index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "author": "GonzalezNacho",
   "license": "ISC",
