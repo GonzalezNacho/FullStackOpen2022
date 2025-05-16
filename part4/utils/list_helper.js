@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 const dummy = (blogs) => {
   return 1
 }
@@ -10,7 +12,17 @@ const totalLikes = (blogs) => {
   : blogs.reduce(reducer,0)
 }
 
+const favoriteBlog = (blogs) => {
+  const reducer = (a, b) => a.likes < b.likes ? b : a
+
+  return blogs.length === 0
+  ? 0
+  : blogs.reduce(reducer)
+}
+
+
 module.exports = {
-  dummy, 
-  totalLikes
+  dummy,
+  totalLikes,
+  favoriteBlog
 }
